@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: kanban
+      POSTGRES_DB: teguh_jaya
     ports: 5433:5432
 
   adminer:
