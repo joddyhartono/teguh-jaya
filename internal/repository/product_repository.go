@@ -11,6 +11,10 @@ type ProductRepository struct {
 	db *sql.DB
 }
 
+func NewProductRepository(db *sql.DB) *ProductRepository {
+	return &ProductRepository{db: db}
+}
+
 func (r *ProductRepository) List(ctx context.Context) ([]model.Product, error) {
 	query := `
 		SELECT
@@ -18,7 +22,7 @@ func (r *ProductRepository) List(ctx context.Context) ([]model.Product, error) {
 			category_id,
 			name,
 			description,
-			image,
+			image
 		FROM products
 		WHERE row_column = 0
 	`

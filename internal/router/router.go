@@ -24,7 +24,7 @@ func New(h Handlers) http.Handler {
 	r.Use(middleware.Timeout(time.Second * 30))
 
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins:		[]string{"http://localhost:5173"},
+		AllowedOrigins:		[]string{"https://*", "http://*"},
 		AllowedMethods:		[]string{"GET", "POST", "PUT", "PATCH", "DELETE"},
 		AllowedHeaders:		[]string{"*"},
 		AllowCredentials:	false,

@@ -14,7 +14,7 @@ type Config struct {
 func Load() (*Config, error) {
 	_ = godotenv.Load()
 
-	cfg := Config{
+	cfg := &Config{
 		DatabaseURL: os.Getenv("DATABASE_URL"),
 	}
 
@@ -22,5 +22,5 @@ func Load() (*Config, error) {
 		return nil, errors.New("DATABASE_URL is required")
 	}
 
-	return &cfg, nil
+	return cfg, nil
 } 

@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"log/slog"
 	"net/http"
 
 	"github.com/joddyhartono/teguh-jaya/internal/model"
@@ -24,9 +25,11 @@ func NewProductHandler(svc ProductService) *ProductHandler {
 }
 
 func (h *ProductHandler) List(w http.ResponseWriter, r *http.Request) {
+	slog.Info("List dipanggil")
 	products, err := h.svc.List(r.Context())
 	if err != nil {
-		response.WriteJSONError(w, http.StatusInternalServerError, "Internal server error")
+		slog.Error("failed to list products", "error", err)
+		response.WriteJSONError(w, http.StatusInternalServerError, "internal server error")
 		return
 	}
 
