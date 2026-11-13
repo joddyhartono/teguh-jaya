@@ -24,7 +24,7 @@ func New(h Handlers) http.Handler {
 	r.Use(middleware.Timeout(time.Second * 30))
 
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins:		[]string{"https://*", "http://*"},
+		AllowedOrigins:		[]string{"http://localhost:5173"},
 		AllowedMethods:		[]string{"GET", "POST", "PUT", "PATCH", "DELETE"},
 		AllowedHeaders:		[]string{"*"},
 		AllowCredentials:	false,
@@ -40,6 +40,7 @@ func New(h Handlers) http.Handler {
 	r.Route("/api", func(r chi.Router) {
 		r.Route("/products", func(r chi.Router) {
 			r.Get("/", h.Product.List)
+			r.Get("/{id}", h.Product.GetByID)
 		})
 	})
 

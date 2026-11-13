@@ -3,7 +3,9 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"errors"
 
+	"github.com/google/uuid"
 	"github.com/joddyhartono/teguh-jaya/internal/model"
 )
 
@@ -19,9 +21,8 @@ func (r *ProductRepository) List(ctx context.Context) ([]model.Product, error) {
 	query := `
 		SELECT
 			id,
-			category_id,
+			category_id
 			name,
-			description,
 			image
 		FROM products
 		WHERE row_column = 0
@@ -36,12 +37,44 @@ func (r *ProductRepository) List(ctx context.Context) ([]model.Product, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		var p model.Product
-		err = rows.Scan(&p.ID, &p.CategoryID, &p.Name, &p.Description, &p.Image)
+		var product model.Product
+		err = rows.Scan(&product.ID, &product.CategoryID, &product.Name, &product.Description, &product.Image)
 		if err != nil {
 			return nil, err
 		}
-		products = append(products, p)
+		products = append(products, product)
 	}
 	return products, rows.Err()
+}
+
+
+func (r *ProductRepository) GetByID(ctx context.Context, id uuid.UUID) (*model.Product, error) {
+	query := `
+		SELECT
+			id,
+			category_id,
+			name,
+			description,
+			image
+		FROM products
+		WHERE id = $1 AND row_column = 0
+	`
+
+	var product model.Product
+	err := r.db.QueryRowContext(ctx, query, id).Scan(
+		&product.ID,
+		&product.CategoryID,
+		&product.Name,
+		&product.Description,
+		&product.Image,
+	)
+	
+	if errors.Is(err, sql.ErrNoRows) {
+		return nil, model.ErrNotFound
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	return &product, nil
 }
