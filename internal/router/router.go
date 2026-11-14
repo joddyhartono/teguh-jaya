@@ -12,6 +12,7 @@ import (
 
 type Handlers struct {
 	Product *handler.ProductHandler
+	Category *handler.CategoryHandler
 }
 
 func New(h Handlers) http.Handler {
@@ -41,6 +42,9 @@ func New(h Handlers) http.Handler {
 		r.Route("/products", func(r chi.Router) {
 			r.Get("/", h.Product.List)
 			r.Get("/{id}", h.Product.GetByID)
+		})
+		r.Route("/categories", func(r chi.Router) {
+			r.Get("/", h.Category.List)
 		})
 	})
 

@@ -20,21 +20,21 @@ type productDetailResponse struct {
 	Image		string		`json:"image"`
 }
 
-func toProductListResponse(p model.Product) productListResponse {
+func toProductListResponse(product model.Product) productListResponse {
 	return productListResponse{
-		ID: p.ID,
-		CategoryID: p.CategoryID,
-		Name: p.Name,
-		Image: p.Image,
+		ID: product.ID,
+		CategoryID: product.CategoryID,
+		Name: product.Name,
+		Image: product.Image,
 	}
 }
 
-func toProductDetailResponse(p model.Product) productDetailResponse {
+func toProductDetailResponse(product model.Product) productDetailResponse {
 	return productDetailResponse{
-		ID: p.ID,
-		CategoryID: p.CategoryID,
-		Name: p.Name,
-		Description: p.Description,
-		Image: p.Image,
+		ID: product.ID,
+		CategoryID: product.CategoryID,
+		Name: product.Name,
+		Description: product.Description,
+		Image: product.Image,
 	}
 }

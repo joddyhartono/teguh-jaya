@@ -11,24 +11,23 @@ import (
 	"github.com/joddyhartono/teguh-jaya/internal/response"
 )
 
-type ProductService interface {
+type ProductRepository interface {
 	List(ctx context.Context) ([]model.Product, error)
 	GetByID(ctx context.Context, id uuid.UUID) (*model.Product, error)
 }
 
 type ProductHandler struct {
-	svc ProductService
+	repo ProductRepository
 }
 
-func NewProductHandler(svc ProductService) *ProductHandler {
-	h := ProductHandler{
-		svc: svc,
+func NewProductHandler(repo ProductRepository) *ProductHandler {
+	return &ProductHandler{
+		repo: repo,
 	}
-	return &h
 }
 
 func (h *ProductHandler) List(w http.ResponseWriter, r *http.Request) {
-	products, err := h.svc.List(r.Context())
+	products, err := h.repo.List(r.Context())
 	if err != nil {
 		log.Printf("failed to list products: %v", err)
 		response.WriteJSONError(w, http.StatusInternalServerError, "internal server error")
@@ -36,8 +35,8 @@ func (h *ProductHandler) List(w http.ResponseWriter, r *http.Request) {
 	}
 
 	res := make([]productListResponse, 0)
-	for _, p := range products {
-		res = append(res, toProductListResponse(p))
+	for _, product := range products {
+		res = append(res, toProductListResponse(product))
 	}
 	response.WriteJSONData(w, http.StatusOK, res)
 }
@@ -48,7 +47,7 @@ func (h *ProductHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 		response.WriteJSONError(w, http.StatusBadRequest, "invalid id")
 		return
 	}
-	product, err := h.svc.GetByID(r.Context(), id)
+	product, err := h.repo.GetByID(r.Context(), id)
 	if err != nil {
 		log.Printf("failed to get product: %v", err)
 		response.WriteJSONError(w, http.StatusInternalServerError, "internal server error")

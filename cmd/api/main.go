@@ -28,8 +28,12 @@ func main() {
 	productRepo := repository.NewProductRepository(db)
 	productHandler := handler.NewProductHandler(productRepo)
 
+	categoryRepo := repository.NewCategoryRepository(db)
+	categoryHandler := handler.NewCategoryHandler(categoryRepo)
+
 	r := router.New(router.Handlers{
 		Product: productHandler,
+		Category: categoryHandler,
 	})
 
 	srv := &http.Server{
