@@ -13,6 +13,7 @@ import (
 type Handlers struct {
 	Product *handler.ProductHandler
 	Category *handler.CategoryHandler
+	Auth *handler.AuthHandler
 }
 
 func New(h Handlers) http.Handler {
@@ -45,6 +46,9 @@ func New(h Handlers) http.Handler {
 		})
 		r.Route("/categories", func(r chi.Router) {
 			r.Get("/", h.Category.List)
+		})
+		r.Route("/auth", func(r chi.Router) {
+			r.Post("/login", h.Auth.Login)
 		})
 	})
 

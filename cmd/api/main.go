@@ -30,10 +30,14 @@ func main() {
 
 	categoryRepo := repository.NewCategoryRepository(db)
 	categoryHandler := handler.NewCategoryHandler(categoryRepo)
+	
+	userRepo := repository.NewUserRepository(db)
+	authHandler := handler.NewAuthHandler(userRepo, cfg.JWTSecret)
 
 	r := router.New(router.Handlers{
 		Product: productHandler,
 		Category: categoryHandler,
+		Auth: authHandler,
 	})
 
 	srv := &http.Server{
