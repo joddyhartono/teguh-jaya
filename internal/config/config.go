@@ -24,5 +24,9 @@ func Load() (*Config, error) {
 		return nil, errors.New("DATABASE_URL is required")
 	}
 
+	if cfg.JWTSecret == "" {
+		return nil, errors.New("JWT_SECRET is required")
+	}
+
 	return cfg, nil
 } 

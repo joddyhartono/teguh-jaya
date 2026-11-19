@@ -38,7 +38,7 @@ func (h *ProductHandler) List(w http.ResponseWriter, r *http.Request) {
 	for _, product := range products {
 		res = append(res, toProductListResponse(product))
 	}
-	response.WriteJSONData(w, http.StatusOK, res)
+	response.WriteJSON(w, http.StatusOK, res)
 }
 
 func (h *ProductHandler) GetByID(w http.ResponseWriter, r *http.Request) {
@@ -53,5 +53,5 @@ func (h *ProductHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 		response.WriteJSONError(w, http.StatusInternalServerError, "internal server error")
 		return
 	}
-	response.WriteJSONData(w, http.StatusOK, toProductDetailResponse(*product))
+	response.WriteJSON(w, http.StatusOK, toProductDetailResponse(*product))
 }

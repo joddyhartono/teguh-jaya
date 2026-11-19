@@ -33,5 +33,5 @@ func (h *CategoryHandler) List(w http.ResponseWriter, r *http.Request) {
 	for _, category := range categories {
 		res = append(res, toCategoryListResponse(category))
 	}
-	response.WriteJSONData(w, http.StatusOK, res)
+	response.WriteJSON(w, http.StatusOK, res)
 }
