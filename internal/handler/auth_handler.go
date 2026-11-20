@@ -19,7 +19,6 @@ type UserRepository interface {
 type AuthHandler struct {
 	repo 		UserRepository
 	jwtSecret 	string
-
 }
 
 func NewAuthHandler(repo UserRepository, jwtSecret string) *AuthHandler {
