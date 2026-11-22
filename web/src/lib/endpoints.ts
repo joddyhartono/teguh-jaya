@@ -8,4 +8,8 @@ const PRODUCTS = {
   BY_CATEGORY: (categoryId: string) => `products?categoryId=${categoryId}`,
 } as const;
 
-export { AUTH, PRODUCTS };
+const CATEGORIES = {
+  BASE: "/categories",
+} as const;
+
+export { AUTH, PRODUCTS, CATEGORIES };

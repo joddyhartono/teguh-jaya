@@ -1,5 +1,7 @@
+import CategorySection from "@/components/admin/category-section";
+
 const DashboardPage = () => {
-  return <>Hello</>;
+  return <CategorySection />;
 };
 
 export default DashboardPage;

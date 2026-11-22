@@ -1,11 +1,17 @@
 import FormField from "@/components/shared/form-field";
 import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/use-auth";
+import { useAppSelector } from "@/store/hooks";
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 const LoginPage = () => {
+  const token = useAppSelector((state) => state.auth.token);
+  if (token) {
+    <Navigate to="/admin/dashboard" replace={true} />;
+  }
+
   const { login } = useAuth();
 
   const [form, setForm] = useState({

@@ -1,5 +1,17 @@
+import Navbar from "@/components/admin/navbar";
+import Footer from "@/components/shared/footer";
+import { Outlet } from "react-router";
+
 const AdminLayout = () => {
-  return <></>;
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  );
 };
 
 export default AdminLayout;
