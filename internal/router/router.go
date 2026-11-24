@@ -46,6 +46,7 @@ func New(h Handlers) http.Handler {
 		})
 		r.Route("/categories", func(r chi.Router) {
 			r.Get("/", h.Category.List)
+			r.Delete("/{id}", h.Category.Delete)
 		})
 		r.Route("/auth", func(r chi.Router) {
 			r.Post("/login", h.Auth.Login)

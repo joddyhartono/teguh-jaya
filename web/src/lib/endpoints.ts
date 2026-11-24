@@ -10,6 +10,7 @@ const PRODUCTS = {
 
 const CATEGORIES = {
   BASE: "/categories",
+  DETAIL: (id: string) => `/categories/${id}`,
 } as const;
 
 export { AUTH, PRODUCTS, CATEGORIES };

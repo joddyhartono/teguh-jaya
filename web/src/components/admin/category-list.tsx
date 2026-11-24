@@ -1,4 +1,3 @@
-import { useAppSelector } from "@/store/hooks";
 import CategoryCard from "./category-card";
 import type { Category } from "@/types/category";
 

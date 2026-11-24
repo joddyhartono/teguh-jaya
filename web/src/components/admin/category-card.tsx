@@ -3,12 +3,17 @@ import { Button } from "../ui/button";
 import { SquarePen, Trash } from "lucide-react";
 import { toImageSrc } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
+import useCategories from "@/hooks/use-categories";
 
 type CategoryCardProps = {
   category: Category;
 };
 
 const CategoryCard = ({ category }: CategoryCardProps) => {
+  const { handleDelete } = useCategories();
+
+  const handleDeleteClick = () => handleDelete(category.id);
+
   return (
     <div className="flex flex-col gap-2 justify-between items-center border rounded-lg bg-card p-4 shadow-sm">
       <h3 className="font-semibold">{category.name}</h3>
@@ -21,7 +26,7 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
         <Button className="cursor-pointer">
           <SquarePen />
         </Button>
-        <Button className="cursor-pointer">
+        <Button className="cursor-pointer" onClick={handleDeleteClick}>
           <Trash />
         </Button>
       </div>

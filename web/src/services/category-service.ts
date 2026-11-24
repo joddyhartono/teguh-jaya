@@ -6,4 +6,9 @@ const getCategories = async () => {
   return response.data;
 };
 
-export { getCategories };
+const deleteCategory = async (id: string) => {
+  const response = await instance.delete(CATEGORIES.DETAIL(id));
+  return response.data;
+};
+
+export { getCategories, deleteCategory };
