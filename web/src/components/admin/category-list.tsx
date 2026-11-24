@@ -1,9 +1,12 @@
 import { useAppSelector } from "@/store/hooks";
 import CategoryCard from "./category-card";
+import type { Category } from "@/types/category";
 
-const CategoryList = () => {
-  const categories = useAppSelector((state) => state.category.categories);
+type CategoryListProps = {
+  categories: Category[];
+};
 
+const CategoryList = ({ categories }: CategoryListProps) => {
   if (categories.length === 0) {
     return <p className="text-muted-foreground">Belum ada kategori.</p>;
   }

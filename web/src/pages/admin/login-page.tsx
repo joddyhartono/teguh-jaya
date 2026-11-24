@@ -9,7 +9,7 @@ import { toast } from "sonner";
 const LoginPage = () => {
   const token = useAppSelector((state) => state.auth.token);
   if (token) {
-    <Navigate to="/admin/dashboard" replace={true} />;
+    return <Navigate to="/admin/dashboard" replace={true} />;
   }
 
   const { login } = useAuth();
